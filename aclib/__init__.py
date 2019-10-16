@@ -6,7 +6,7 @@ from configparser import ConfigParser
 logger = logging.getLogger()
 
 
-def get_url(db_name, schema_name):
+def get_url(db_name=None, schema_name=None):
     credential_filename = os.getenv("ACLIB_CREDENTIAL_FILENAME", os.path.expanduser("~") + "/.odbc.ini")
     credential_section = os.getenv("ACLIB_CREDENTIAL_SECTION", "datahub")
     # Create engine with credentials
@@ -16,12 +16,16 @@ def get_url(db_name, schema_name):
     cred.read(credential_filename)
     credd = dict(cred.items(credential_section))
     snowflake_host = credd.get('host', "alphacruncher.eu-central-1")
-    logger.info('Built SQLAlchemy URL: ' + 'snowflake://' + credd['uid'] + ':*************' +
-                '@' + snowflake_host + '/?warehouse=' + credd['uid'] +
-                '&database=' + db_name + '&schema=' + schema_name)
-    return 'snowflake://' + credd['uid'] + ':' + credd['pwd'] + \
-           '@' + snowflake_host + '/?warehouse=' + credd['uid'] + \
-           '&database=' + db_name + '&schema=' + schema_name
+    url = 'snowflake://' + credd['uid'] + ':' + credd['pwd'] + '@' + snowflake_host + '/?warehouse=' + credd['uid']
+    masked_url = 'snowflake://' + credd['uid'] + ':********' + '@' + snowflake_host + '/?warehouse=' + credd['uid']
+    if db_name:
+        url = url + '&database=' + db_name
+        masked_url = masked_url + '&database=' + db_name
+        if schema_name:
+            url = url + '&schema=' + schema_name
+            masked_url = masked_url + '&schema=' + schema_name
+    logger.info('Built SQLAlchemy URL: ' + masked_url)
+    return url
 
 
 def get_engine(db_name, schema_name):

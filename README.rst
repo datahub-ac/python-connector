@@ -24,6 +24,8 @@ You can then get the SQLAlchemy connection string, or create an SQLAlchemy engin
 ::
 
     >>> from aclib import get_url, get_engine
+    >>> get_url()
+    'snowflake://<username>:<password>@alphacruncher.eu-central-1/?warehouse=<username>'
     >>> get_url("db_name","schema_name")
     'snowflake://<username>:<password>@alphacruncher.eu-central-1/?warehouse=<username>&database=db_name&schema=schema_name'
     >>> eng = get_engine("db_name","schema_name")
