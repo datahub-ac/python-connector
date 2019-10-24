@@ -19,6 +19,10 @@ It assumes that you have a credential file ``~/.odbc.ini`` in the following form
     uid = <username>
     pwd = <password>
 
+The library will also look for a special ``/lifecycle/.dbpath`` file.
+When used inside an Alphacruncher application, this file is populated by the platfrom
+with the db and schema name of the application, and the library will pick these up automatically.
+
 You can then get the SQLAlchemy connection string, or create an SQLAlchemy engine directly:
 
 ::

@@ -4,7 +4,7 @@ from sqlalchemy import engine_from_config
 from configparser import ConfigParser
 import re
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 
 def get_dbpath():
@@ -15,7 +15,7 @@ def get_dbpath():
     with open(path_filename, 'r') as path_file:
         lines = path_file.readlines()
         if len(lines) == 0:
-            logger.warning(f"Could not parse dbpath file: {path_filename} is empty")
+            logger.debug(f"Could not parse dbpath file: {path_filename} is empty")
             return None, None
         first_line = lines[0]
         # Remove end of line character
@@ -24,7 +24,7 @@ def get_dbpath():
         # This should have resulted in two substrings
         split_arr = re.split("\".\"", first_line)
         if len(split_arr) != 2:
-            logger.warning(
+            logger.debug(
                 f"Could not parse dbpath file: pattern \".\" not found in {path_filename}. Are the names escaped with double quotes?")
             return None, None
         # Split removes the two quotes
@@ -57,7 +57,7 @@ def get_url(db_name=None, schema_name=None):
         if schema_name:
             url = url + '&schema=' + schema_name
             masked_url = masked_url + '&schema=' + schema_name
-    logger.info('Built SQLAlchemy URL: ' + masked_url)
+    logger.debug('Built SQLAlchemy URL: ' + masked_url)
     return url
 
 
