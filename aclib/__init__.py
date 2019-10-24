@@ -17,9 +17,7 @@ def get_dbpath():
         if len(lines) == 0:
             logger.debug(f"Could not parse dbpath file: {path_filename} is empty")
             return None, None
-        first_line = lines[0]
-        # Remove end of line character
-        first_line = re.sub('`\n', '', first_line)
+        first_line = lines[0].rstrip()
         # Split at "." character
         # This should have resulted in two substrings
         split_arr = re.split("\".\"", first_line)
