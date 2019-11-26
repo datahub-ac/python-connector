@@ -15,7 +15,7 @@ It assumes that you have a credential file ``~/.odbc.ini`` in the following form
 
 ::
 
-    [datahub]
+    [nuvolos]
     uid = <username>
     pwd = <password>
 

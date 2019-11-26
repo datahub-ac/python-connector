@@ -35,7 +35,7 @@ def get_dbpath():
 
 def get_url(db_name=None, schema_name=None):
     credential_filename = os.getenv("ACLIB_CREDENTIAL_FILENAME", os.path.expanduser("~") + "/.odbc.ini")
-    credential_section = os.getenv("ACLIB_CREDENTIAL_SECTION", "datahub")
+    credential_section = os.getenv("ACLIB_CREDENTIAL_SECTION", "nuvolos")
 
     # Create engine with credentials
     cred = ConfigParser(interpolation=None)
@@ -59,5 +59,5 @@ def get_url(db_name=None, schema_name=None):
     return url
 
 
-def get_engine(db_name, schema_name):
+def get_engine(db_name=None, schema_name=None):
     return engine_from_config({'sqlalchemy.url': get_url(db_name, schema_name), 'sqlalchemy.echo': False})

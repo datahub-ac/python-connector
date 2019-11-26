@@ -7,7 +7,7 @@ def readme():
 
 
 setup(name='aclib',
-      version='0.2.3',
+      version='0.2.4',
       description='The Alphacruncher python library',
       long_description=readme(),
       url='https://github.com/datahub-ac/python-connector',
