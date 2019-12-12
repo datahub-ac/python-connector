@@ -72,8 +72,6 @@ def get_url(db_name=None, schema_name=None):
     logger.debug('Built SQLAlchemy URL: ' + masked_url)
     return url
 
+
 def get_engine(db_name=None, schema_name=None):
     return engine_from_config({'sqlalchemy.url': get_url(db_name, schema_name), 'sqlalchemy.echo': False})
-
-
-'snowflake://vinczeb:X0eKHrchduswy3Qt@alphacruncher.eu-central-1/?warehouse=vinczeb&database=STAGING/summer_school/module_1, group_1/development&schema="group_1/development"'
